@@ -1,0 +1,69 @@
+:root{--bg:#14101a;--card:#1f1927;--ink:#f4eef8;--mute:#b3a7bf;--accent:#e0457b;--line:#33293e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Poppins',system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--line)}
+.brand{color:var(--ink);font-weight:700;text-decoration:none;font-size:20px}
+.badge{background:var(--accent);padding:2px 10px;border-radius:99px;font-size:13px;font-weight:600}
+main{max-width:960px;margin:0 auto;padding:32px 20px}
+.hero{text-align:center;padding:40px 0}
+.lead{color:var(--mute);max-width:560px;margin:0 auto 20px}
+.price{font-size:40px;font-weight:800;margin:10px 0 20px}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:0;padding:12px 26px;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.sm{padding:6px 12px;font-size:13px}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--mute)}
+.small{color:var(--mute);font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+.card,.form,.pay{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.checkout{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.pay{text-align:center}.qr{width:240px;max-width:100%;background:#fff;padding:10px;border-radius:12px}
+.form label{display:block;margin:12px 0;color:var(--mute);font-size:14px}
+.form input:not([type=checkbox]){display:block;width:100%;margin-top:4px;padding:10px;border-radius:8px;border:1px solid var(--line);background:#120e17;color:var(--ink);font-size:16px}
+.form .check{display:flex;gap:8px;align-items:center}
+.narrow{max-width:380px;margin:40px auto}
+.flash{background:#3a1b2a;border:1px solid var(--accent);padding:10px 14px;border-radius:8px;margin-bottom:16px}
+.adminhead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.st{padding:2px 8px;border-radius:99px;font-size:12px}.st.pending{background:#4a3a12}.st.delivered{background:#14402a}.st.rejected{background:#4a1a1a}
+a{color:var(--accent)}footer{text-align:center;color:var(--mute);font-size:13px;padding:24px}
+
+/* ---- Title: one-time intro animation + attention-grabbing font ---- */
+.title{font-family:'Anton','Impact',sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(40px,9vw,92px);line-height:1.05;letter-spacing:.04em;margin:0 0 8px;color:#ff5c93}
+.title .word{display:inline-block;white-space:nowrap}
+.title .ch{display:inline-block;color:hsl(calc(340 + var(--i) * 2.2), 100%, 66%);text-shadow:0 4px 22px rgba(224,69,123,.45);opacity:0;transform:translateY(40px) scale(.6) rotate(-8deg);filter:blur(8px);
+  animation:pop .7s cubic-bezier(.2,.9,.3,1.3) forwards;animation-delay:calc(var(--i) * 55ms + .2s)}
+@keyframes pop{to{opacity:1;transform:none;filter:blur(0)}}
+.underline{height:4px;width:0;margin:6px auto 18px;border-radius:4px;background:linear-gradient(90deg,#ff4d8d,#ffb36b);
+  animation:grow 1s ease forwards;animation-delay:1.9s}
+@keyframes grow{to{width:min(320px,60%)}}
+.hero .lead,.hero .price,.hero .btn,.hero .small{opacity:0;animation:fade .8s ease forwards}
+.hero .lead{animation-delay:2.2s}.hero .price{animation-delay:2.4s}.hero .btn{animation-delay:2.6s}.hero .small{animation-delay:2.8s}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.price{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:.04em}
+@media (prefers-reduced-motion:reduce){.title .ch,.underline,.hero .lead,.hero .price,.hero .btn,.hero .small{animation:none;opacity:1;transform:none;filter:none}.underline{width:min(320px,60%)}}
+
+/* ---- Background artwork (30% opacity) ---- */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:url('bg-art.png') center 55%/min(900px,92vw) auto no-repeat;opacity:.3}
+
+/* ---- PayU flow pages ---- */
+.panel{text-align:center;padding:40px 0}
+.panel h2{font-size:clamp(24px,4vw,34px);margin:0 0 10px}
+.panel code,td code{background:#120e17;border:1px solid var(--line);padding:2px 8px;border-radius:6px;font-size:13px}
+.st.created{background:#4a3a12}
+.demo-banner{background:#5a2a12;color:#ffd9b8;text-align:center;padding:8px 12px;font-size:14px;font-weight:600}
+
+/* ---- Plans ---- */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:10px;scroll-margin-top:16px}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 24px;text-align:center}
+.plan h2{margin:0;font-size:22px}
+.plan-price{font-family:'Anton',sans-serif;font-size:56px;letter-spacing:.03em;color:#ff7aa5;margin:6px 0 2px;text-shadow:0 4px 22px rgba(224,69,123,.35)}
+.plan-tag{color:var(--mute);margin:0 0 18px;font-size:15px;min-height:46px}
+.plan-list{list-style:none;margin:22px 0 0;padding:18px 0 0;border-top:1px solid var(--line);text-align:left}
+.plan-list li{position:relative;padding:7px 0 7px 28px;font-size:15px}
+.plan-list li::before{content:"\2713";position:absolute;left:0;top:7px;color:var(--accent);font-weight:700}
+.planopt{display:flex;align-items:center;gap:12px;text-align:left;background:#120e17;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0;cursor:pointer}
+.planopt:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.planopt input{accent-color:var(--accent)}
+.po-text{flex:1}.po-text small{display:block;color:var(--mute);font-size:13px;line-height:1.3}
+.po-price{font-family:'Anton',sans-serif;font-weight:400;font-size:24px;letter-spacing:.03em}

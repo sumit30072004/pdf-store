@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ name or "Guide Store" }}{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ url_for('index') }}">Guide Store</a>
+  <span class="badge">18+ only</span>
+</header>
+{% if demo %}<div class="demo-banner">DEMO MODE &mdash; payments are simulated. Set DEMO_MODE=0 before going live.</div>{% endif %}
+<main>
+  {% with msgs = get_flashed_messages() %}
+    {% for m in msgs %}<div class="flash">{{ m }}</div>{% endfor %}
+  {% endwith %}
+  {% block body %}{% endblock %}
+</main>
+<footer>&copy; Guide Store &middot; For adults (18+) only &middot; Digital product, no refunds after download &middot; <a href="{{ url_for('find') }}">Find my order</a></footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero">
+  {% set words = name.split() %}
+  {% set ns = namespace(n=0) %}
+  <h1 class="title" aria-label="{{ name }}">
+    {% for w in words %}<span class="word" aria-hidden="true">{% for ch in w %}<span class="ch" style="--i:{{ ns.n }}">{{ ch }}</span>{% set ns.n = ns.n + 1 %}{% endfor %}</span>{% if loop.index == (words|length // 2) %}<br>{% else %} {% endif %}{% endfor %}
+  </h1>
+  <div class="underline"></div>
+  <p class="lead">A premium PDF guide for couples &mdash; clear, easy to follow, and ready to download the moment you pay.</p>
+  <div class="price">From &#8377;{{ plans.basic.price }}</div>
+  <a class="btn" href="#plans">Choose your plan</a>
+  <p class="small">You must be 18 or older. Download button appears right after your payment succeeds.</p>
+</section>
+
+<section id="plans" class="plans">
+  {% for key in ['basic', 'premium'] %}{% set p = plans[key] %}
+  <article class="plan">
+    <h2>{{ p.name }}</h2>
+    <div class="plan-price">&#8377;{{ p.price }}</div>
+    <p class="plan-tag">{{ p.tagline }}</p>
+    <a class="btn" href="{{ url_for('buy', plan=key) }}">Get {{ p.name }}</a>
+    <ul class="plan-list">
+      {% for item in p.features %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="cards">
+  <div class="card"><h3>Instant download</h3><p>Pay securely with UPI, cards or net banking via PayU and download your PDF immediately.</p></div>
+  <div class="card"><h3>Private</h3><p>Plain billing, no account needed. We only use your details for the payment receipt.</p></div>
+  <div class="card"><h3>Premium content</h3><p>Well-organised chapters with clear instructions and tips.</p></div>
+</section>
+{% endblock %}

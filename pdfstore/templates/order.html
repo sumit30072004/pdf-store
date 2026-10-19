@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Your order{% endblock %}
+{% block body %}
+<section class="panel">
+{% if o.status == 'paid' %}
+  <h2>Payment successful &#127881;</h2>
+  <p class="lead">Thank you, {{ o.name }}! Your guide is ready.</p>
+  <p class="small">{{ plan.name }} &middot; &#8377;{{ o.amount }}</p>
+  {% if left > 0 %}
+    <a class="btn" href="{{ url_for('download', token=o.dl_token) }}">&#11015;&nbsp; Download PDF</a>
+    <p class="small">Downloads left: {{ left }} of {{ max_dl }}</p>
+  {% else %}
+    <p class="lead">Download limit reached. Please contact support with your Order ID.</p>
+  {% endif %}
+  <p class="small">Order ID: <code>{{ o.txnid }}</code><br>Save it &mdash; you can come back anytime with <a href="{{ url_for('find') }}">Find my order</a>.</p>
+{% elif o.status == 'failed' %}
+  <h2>Payment failed</h2>
+  <p class="lead">Your payment did not go through. You have not been charged for this order.</p>
+  <a class="btn" href="{{ url_for('buy', plan=o.plan) }}">Try again</a>
+{% else %}
+  <h2>Waiting for payment</h2>
+  <p class="lead">We have not received a payment confirmation for this order yet.</p>
+  <p class="small">{{ plan.name }} &middot; &#8377;{{ o.amount }}</p>
+  <a class="btn" href="{{ url_for('pay', txnid=o.txnid) }}">Continue to payment</a>
+  {% if can_check %}
+  <form method="post" action="{{ url_for('order_check', txnid=o.txnid) }}" style="margin-top:14px">
+    <button class="btn ghost" type="submit">I already paid &mdash; check status</button>
+  </form>
+  {% endif %}
+  <p class="small">Order ID: <code>{{ o.txnid }}</code></p>
+{% endif %}
+</section>
+{% endblock %}

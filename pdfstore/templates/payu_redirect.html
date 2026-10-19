@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Redirecting to PayU{% endblock %}
+{% block body %}
+<section class="panel">
+  <h2>Redirecting to PayU&hellip;</h2>
+  <p class="lead">Please don't close or refresh this page.</p>
+  <form id="payu" action="{{ action }}" method="post">
+    {% for k, v in fields.items() %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endfor %}
+    <noscript><button class="btn" type="submit">Continue to PayU</button></noscript>
+  </form>
+</section>
+<script>document.getElementById("payu").submit();</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Orders{% endblock %}
+{% block body %}
+<div class="adminhead">
+  <h2>Orders</h2>
+  <div>Paid: <strong>{{ paid_count }}</strong> ({{ by_plan.basic }} Basic &middot; {{ by_plan.premium }} Premium) &middot; Revenue: <strong>&#8377;{{ "%.0f"|format(revenue) }}</strong> &middot; <a href="{{ url_for('logout') }}">Logout</a></div>
+</div>
+<p class="small">PayU confirms payments automatically. If a customer says they paid but the order still shows <em>created</em>, click <strong>Check with PayU</strong>.</p>
+<div class="tablewrap">
+<table>
+  <tr><th>#</th><th>Time</th><th>Order ID</th><th>Customer</th><th>Plan</th><th>Amount</th><th>Status</th><th>PayU ID / Mode</th><th>Downloads</th><th></th></tr>
+  {% for r in rows %}
+  <tr>
+    <td>{{ r.id }}</td><td>{{ r.created }}</td><td><code>{{ r.txnid }}</code></td>
+    <td>{{ r.name }}<br><small>{{ r.email }} &middot; {{ r.phone }}</small></td>
+    <td>{{ plans[r.plan].name if r.plan in plans else r.plan }}</td>
+    <td>&#8377;{{ r.amount }}</td>
+    <td><span class="st {{ r.status }}">{{ r.status }}</span>{% if r.note %}<br><small>{{ r.note }}</small>{% endif %}</td>
+    <td>{{ r.mihpayid or '-' }}<br><small>{{ r.mode or '' }}</small></td>
+    <td>{{ r.downloads }}</td>
+    <td>{% if r.status != 'paid' and can_check %}
+      <form method="post" action="{{ url_for('admin_check', txnid=r.txnid) }}"><button class="btn sm">Check with PayU</button></form>
+    {% endif %}</td>
+  </tr>
+  {% else %}<tr><td colspan="10">No orders yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

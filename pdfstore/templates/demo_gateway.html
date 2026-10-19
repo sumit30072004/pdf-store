@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Demo payment{% endblock %}
+{% block body %}
+<section class="panel">
+  <h2>Demo payment page</h2>
+  <p class="lead">This stands in for the PayU page while you test. No real money is used.</p>
+  <p>{{ plan.name }} &middot; Order <code>{{ o.txnid }}</code> &middot; &#8377;{{ o.amount }}</p>
+  <form method="post" action="{{ url_for('demo_pay', txnid=o.txnid, outcome='success') }}" style="display:inline">
+    <button class="btn" type="submit">Simulate successful payment</button>
+  </form>
+  <form method="post" action="{{ url_for('demo_pay', txnid=o.txnid, outcome='failure') }}" style="display:inline">
+    <button class="btn ghost" type="submit">Simulate failed payment</button>
+  </form>
+</section>
+{% endblock %}

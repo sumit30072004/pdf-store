@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Find my order{% endblock %}
+{% block body %}
+<form method="post" class="form narrow">
+  <h2>Find my order</h2>
+  <p class="small">Enter the Order ID shown after payment and the email you used.</p>
+  <label>Order ID <input name="order_id" required placeholder="MPMP..."></label>
+  <label>Email <input type="email" name="email" required></label>
+  <button class="btn" type="submit">Find order</button>
+</form>
+{% endblock %}
